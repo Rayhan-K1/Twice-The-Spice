@@ -1,0 +1,105 @@
+<!-- <div id="TwiceTheSpice_AboutUsRoot" style="padding-top: 30px;" :style="getDeviceOrientation == 'portrait' ? '' : 'padding-bottom: calc(100vh - var(--navbar-height));'"> -->
+<div id="TwiceTheSpice_AboutUsRoot" style="padding-top: 30px;min-height: calc(110vh - var(--navbar-height));">
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); grid-gap: 50px;">
+        <div style="grid-area: span 1 / span 6;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-gap: 0px;">
+                <div style="grid-area: span 1 / span 1;">
+
+                </div>
+                <div style="grid-area: span 1 / span 1;">
+                    <div class="col text-center px-5">
+                        <!-- <button class="btn btn-lg btn-outline-info shadow-lg py-3 orderNow" style="min-width: fit-content;">Order Now</button> -->
+                        <div class="orderNow-container" id="whoAreWe_button" v-on:click="goTo('whoAreWe')">
+                            <a href="#" class="button">
+                                <div class="button-line"></div>
+                                <div class="button-line"></div>
+                                <span class="button-text">Who Are We?</span>
+                                <!-- <div class="button-draw1"></div>
+                                <div class="button-draw2"></div> -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div style="grid-area: span 1 / span 1;">
+                    <div class="col text-center px-5">
+                        <!-- <button class="btn btn-lg btn-outline-info shadow-lg py-3 orderNow" style="min-width: fit-content;">Order Now</button> -->
+                        <div class="orderNow-container" v-on:click="goTo('ourStory')">
+                            <a href="#" class="button">
+                                <div class="button-line"></div>
+                                <div class="button-line"></div>
+                                <span class="button-text">Our Story</span>
+                                <!-- <div class="button-draw1"></div>
+                                <div class="button-draw2"></div> -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div style="grid-area: span 1 / span 1;">
+                    <div class="col text-center px-5">
+                        <!-- <button class="btn btn-lg btn-outline-info shadow-lg py-3 orderNow" style="min-width: fit-content;">Order Now</button> -->
+                        <div class="orderNow-container" v-on:click="goTo('gallery')">
+                            <a href="#" class="button">
+                                <div class="button-line"></div>
+                                <div class="button-line"></div>
+                                <span class="button-text">Gallery</span>
+                                <!-- <div class="button-draw1"></div>
+                                <div class="button-draw2"></div> -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div style="grid-area: span 1 / span 1;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <template v-if="state == 'whoAreWe'">
+        <div id="whoWeAre" class="my-5 container" style="display: grid; grid-template-columns: repeat(6, 1fr); grid-gap: 50px;">
+            <div class="text-gradient text-center" style="grid-area: span 1 / span 6;">
+                <h1 class="pb-4 text-gradient text-fancy">Welcome - </h1>
+                <h5 class="text-not-fancy">to Twice the Spice, an authentic Indian tandoori restaurant and takeaway that offers a vibrant and unforgettable dining experience. Our restaurant is a celebration of the rich and diverse culinary traditions of India, with a special focus on the bold and flavorful tandoori cuisine.<br><br>
+
+                    At Twice the Spice, we take pride in our commitment to using only the freshest and highest quality ingredients to create our dishes. Our menu features a wide range of tandoori specialties, including succulent chicken and lamb, marinated in a delicious blend of spices and slow-cooked in our traditional clay ovens.<br><br>
+
+                    Whether you're looking for a quick takeaway meal or a leisurely dining experience, our friendly and knowledgeable staff are always on hand to guide you through our menu and help you choose the perfect dishes to suit your taste.<br><br>
+
+                    Located in the heart of the Black Country, Twice the Spice is the perfect destination for anyone looking to experience the vibrant flavors and rich cultural heritage of Indian cuisine. So come join us for an unforgettable culinary journey through the world of tandoori cuisine!</h5>
+            </div>
+        </div>
+    </template>
+    <template v-if="state == 'ourStory'">
+        <div id="ourStory" class="my-5 container" style="display: grid; grid-template-columns: repeat(6, 1fr); grid-gap: 50px;">
+            <div class="text-gradient text-center" style="grid-area: span 1 / span 6;">
+                <h1 class="pb-4 text-gradient text-fancy">Our Story - </h1>
+                <h5 class="text-not-fancy">Twice The Spice is a company that takes great pride in its commitment to excellence and quality. Through its innovative yet traditional cuisine and impeccable service, it consistently delivers on these standards. The inspiration for the establishment of Twice The Spice came from the owner's previous successful venture, the LIGHT OF ASIA, which was established 20 years ago. In 2006, the new management wanted to bring the same high-quality service and food to the Dudley area, under a new name. <br><br>
+                    Conveniently located on Dudley High Street, Twice The Spice is easily accessible and has ample parking facilities for the convenience of its customers. Its spacious and calming atmosphere, which can accommodate over 100 guests, is perfect for small or large parties. For special occasions such as Christmas or Valentine's Day, or any other event, advance bookings are available.<br><br>
+                    In addition, Twice The Spice has a dedicated waiting area for takeaways, as well as a counter for ordering and payments. This ensures a seamless and hassle-free service, making it easy for customers to enjoy our delicious food from the comfort of their own home. <br><br>
+                    Come and enjoy the finest Indian cuisine at Twice The Spice, where quality, service, and satisfaction are our top priorities.
+                </h5>
+            </div>
+        </div>
+    </template>
+    <template v-if="state == 'gallery'">
+        <div id="ourGallery" class="my-5 container" style="display: grid; grid-template-columns: repeat(6, 1fr); grid-gap: 50px;">
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+            <div class="shadow shadow-lg text-center zoom" style="grid-area: span 1 / span 2;border: 1px solid var(--line_color)">
+                <img src="source/resources/background-pink.jpg" style=" height: 200px; width: 100%; cursor: pointer;" />
+            </div>
+        </div>
+    </template>
+</div>

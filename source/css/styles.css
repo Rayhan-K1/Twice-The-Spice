@@ -1,0 +1,687 @@
+:root {
+    --navbar-height: 140px;
+    --line_color: #8d02ff;
+    --back_color: #d402ff;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .1s ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    animation-duration: .5s;
+}
+
+.fadeIn.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+}
+
+.fadeIn.second {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+
+.fadeIn.third {
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+}
+
+.fadeIn.fourth {
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+/* Footer */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#footer h5 {
+    padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+#footer ul.social li {
+    padding: 3px 0;
+}
+
+#footer ul.social li a i {
+    margin-right: 5px;
+    font-size: 25px;
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    transition: .5s all ease;
+}
+
+#footer ul.social li:hover a i {
+    font-size: 30px;
+    margin-top: -10px;
+}
+
+#footer ul.social li a,
+#footer ul.quick-links li a {
+    color: #ffffff;
+}
+
+#footer ul.social li a:hover {
+    color: #eeeeee;
+}
+
+#footer ul.quick-links li {
+    padding: 3px 0;
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    transition: .5s all ease;
+}
+
+#footer ul.quick-links li:hover {
+    padding: 3px 0;
+    margin-left: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#footer ul.quick-links li a i {
+    margin-right: 5px;
+}
+
+#footer ul.quick-links li:hover a i {
+    font-weight: 700;
+}
+
+@media (max-width:767px) {
+    #footer h5 {
+        padding-left: 0;
+        border-left: transparent;
+        padding-bottom: 0px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width:720px) {
+    #footer {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+@media (min-width:721px) {
+    #footer {
+        background: linear-gradient(90deg, #8d02ff 0%, #d402ff 100%) !important;
+
+    }
+}
+
+.button {
+    position: relative;
+    z-index: 0;
+    width: 240px;
+    height: 56px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--line_color);
+    letter-spacing: 2px;
+    transition: all .3s ease;
+}
+
+.button-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.button::before,
+.button::after,
+.button-text::before,
+.button-text::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--line_color);
+    transition: all .5s ease;
+}
+
+.button::before {
+    top: 0;
+    left: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+}
+
+.button::after {
+    top: 0;
+    right: 54px;
+    width: 8px;
+}
+
+.button-text::before {
+    bottom: 0;
+    right: 54px;
+    width: calc(100% - 56px * 2 - 16px);
+}
+
+.button-text::after {
+    bottom: 0;
+    left: 54px;
+    width: 8px;
+}
+
+.button-line {
+    position: absolute;
+    top: 0;
+    width: 56px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.button-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 300px;
+    border: solid 3px var(--line_color);
+}
+
+.button-line:nth-child(1),
+.button-line:nth-child(1)::before {
+    left: 0;
+}
+
+.button-line:nth-child(2),
+.button-line:nth-child(2)::before {
+    right: 0;
+}
+
+.button:hover {
+    letter-spacing: 6px;
+    color: white;
+}
+
+.button:hover::before,
+.button:hover .button-text::before {
+    width: 8px;
+}
+
+.button:hover::after,
+.button:hover .button-text::after {
+    width: calc(100% - 56px * 2 - 16px);
+}
+
+.button-draw1,
+.button-draw2 {
+    position: absolute;
+    z-index: -1;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+}
+
+.button-draw1 {
+    top: -16px;
+    left: 40px;
+    width: 32px;
+    height: 0;
+    transform: rotate(30deg);
+}
+
+.button-draw2 {
+    top: 44px;
+    left: 77px;
+    width: 32px;
+    height: 0;
+    transform: rotate(-127deg);
+}
+
+.button-draw1::before,
+.button-draw1::after,
+.button-draw2::before,
+.button-draw2::after {
+    content: '';
+    position: absolute;
+}
+
+.button-draw1::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-60deg);
+}
+
+.button-draw1::after {
+    top: -10px;
+    left: 45px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(69deg);
+}
+
+.button-draw2::before {
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-146deg);
+}
+
+.button-draw2::after {
+    bottom: 26px;
+    left: -40px;
+    width: 0;
+    height: 32px;
+    border-radius: 16px;
+    transform-origin: 16px 16px;
+    transform: rotate(-262deg);
+}
+
+.button-draw1,
+.button-draw1::before,
+.button-draw1::after,
+.button-draw2,
+.button-draw2::before,
+.button-draw2::after {
+    background: var(--back_color);
+}
+
+.button:hover .button-draw1 {
+    animation: draw1 ease-in .06s;
+    animation-fill-mode: forwards;
+}
+
+.button:hover .button-draw1::before {
+    animation: draw2 linear .08s .06s;
+    animation-fill-mode: forwards;
+}
+
+.button:hover .button-draw1::after {
+    animation: draw3 linear .03s .14s;
+    animation-fill-mode: forwards;
+}
+
+.button:hover .button-draw2 {
+    animation: draw4 linear .06s .2s;
+    animation-fill-mode: forwards;
+}
+
+.button:hover .button-draw2::before {
+    animation: draw3 linear .03s .26s;
+    animation-fill-mode: forwards;
+}
+
+.button:hover .button-draw2::after {
+    animation: draw5 linear .06s .32s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes draw1 {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 100px;
+    }
+}
+
+@keyframes draw2 {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    11% {
+        opacity: 1;
+    }
+
+    100% {
+        width: 120px;
+    }
+}
+
+@keyframes draw3 {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 80px;
+    }
+}
+
+@keyframes draw4 {
+    0% {
+        height: 0;
+    }
+
+    100% {
+        height: 120px;
+    }
+}
+
+@keyframes draw5 {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 124px;
+    }
+}
+
+.orderNow-container {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.zoom {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.zoom:hover {
+    transform: scale(1.05);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.orderNow {
+    width: 10%;
+    opacity: 0.7;
+}
+
+.orderNow:hover {
+    width: 10%;
+    opacity: 1;
+}
+
+.active {
+    transform: scale(1.1);
+    transition: transform .2s;
+    color: var(--line_color) !important;
+    text-decoration: none !important;
+    font-weight: 700;
+}
+
+.text-gradient {
+    background: -webkit-linear-gradient(left, var(--line_color), var(--back_color));
+    background: -o-linear-gradient(right, var(--line_color), var(--back_color));
+    background: -moz-linear-gradient(right, var(--line_color), var(--back_color));
+    background: linear-gradient(to right, var(--line_color), var(--back_color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-fancy {
+    font-family: "Lobster", sans-serif;
+}
+
+.text-not-fancy {
+    font-family: "Oswald";
+}
+
+.active-aboutUs {}
+
+.vertical-divider {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.062), rgba(0, 0, 0, 0.062));
+    background-size: 2px 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: calc(100vh - var(--navbar-height) - 100px)
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+a {
+    color: rgb(46, 45, 45)
+}
+
+a:hover {
+    color: rgb(46, 45, 45)
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.icon-shape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icon-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.position-bottom-right {
+    position: relative;
+    bottom: 0;
+    right: 0;
+}
+
+.nav-collapse-custom {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.nav-collapse-custom-a {
+    display: inline-block !important;
+
+}
+
+.imgbox {
+    display: grid;
+    height: 100%;
+}
+
+.center-fit {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+}
+
+.btn-circular {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 1px solid black;
+    transition: transform .2s;
+    cursor: pointer;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(240, 238, 238);
+}
+
+.btn-circular:hover {
+    transform: scale(1.05);
+}
+
+.btn-outline-purple {
+    border: 1px solid #8d02ff;
+    color: #8d02ff;
+    animation: fadeIn .2s;
+}
+
+.btn-outline-purple:hover {
+    background-color: #8d02ff;
+    color: #eeeeee;
+}
+
+.bg-purple {
+    background-color: #8d02ff !important;
+}
+
+.text-purple {
+    color: #8d02ff !important;
+}
+
+.text-pink {
+    color: #d402ff !important;
+}

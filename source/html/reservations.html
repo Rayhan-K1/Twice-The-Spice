@@ -1,0 +1,96 @@
+<div id="TwiceTheSpice_ReservationsRoot" style="min-height: calc(100vh - var(--navbar-height)); padding: 40px 80px 80px 80px;">
+    <template v-if="state == 'requestReservation'">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 10px;">
+            <div>
+
+            </div>
+            <div style="grid-area: span 1 / span 2;">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary disabled" type="button" disabled="true">Reservation Date</button>
+                    </div>
+                    <input type="datetime-local" id="reservations_dateTime" class="form-control" v-model="reservationTimestamp">
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div style="grid-area: span 1 / span 2;">
+                <div class="form-group">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 10px;">
+                        <div style="grid-area: span 1 / span 1;">
+                            <label>First Name:</label>
+                            <input type="text" class="form-control" placeholder="e.g: John" v-model="firstName">
+                        </div>
+                        <div style="grid-area: span 1 / span 1;">
+                            <label>Last Name:</label>
+                            <input type="text" class="form-control" placeholder="e.g: Appleseed" v-model="lastName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div style="grid-area: span 1 / span 2;">
+                <div class="form-group">
+                    <label>Contact Number:</label>
+                    <input type="text" class="form-control" placeholder="e.g: 07123 456 789" v-model="contactNumber">
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div style="grid-area: span 1 / span 2;">
+                <div class="form-group">
+                    <label>Party Size:</label>
+                    <input type="number" class="form-control" placeholder="e.g: 3" v-model="partySize">
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+            <div style="grid-area: span 1 / span 2;">
+                <div id="submit" class="form-group">
+                    <div type="button" class="btn btn-outline-dark w-100" v-on:click="canRequestReservation ? sendReservation() : null" :disabled="!canRequestReservation" :class="canRequestReservation ? '' : 'disabled'">Request Reservation</div>
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </template>
+    <template v-if="state == 'reservationConfirmed'">
+        <div class="row fadeIn first">
+            <div class="col text-center mt-3">
+                <img class="img-fluid zoom" src="source/resources/orderPlaced.png" style="width: 30%" />
+            </div>
+        </div>
+        <div class="fadeIn second">
+            <div class="mx-5 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="header text-purple">
+                            Your Reservation Has Been Requested!
+                        </h4>
+                        <h5 class="text-muted text-pink">
+                            We will contact you if there is an issue regarding your booking. If you do not hear from us within the next 15 minutes, please assume your booking has been successful
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</div>

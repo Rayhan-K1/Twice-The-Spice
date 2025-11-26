@@ -1,0 +1,191 @@
+<html class="page-width">
+
+<head>
+    <!-- JQuery -->
+    <script src="source/libraries/JQuery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="source/libraries/Bootstrap.css">
+    <script src="source/libraries/Popper.js"></script>
+    <script src="source/libraries/Bootstrap.js"></script>
+    <!-- Vue.js -->
+    <script src="source/libraries/vue/vue.js"></script>
+    <script src="source/libraries/vue/router.js"></script>
+    <!-- Charts.js -->
+    <script src="source/libraries/Charts.js"></script>
+    <!-- Underscore.js -->
+    <script src="source/libraries/underscore.js"></script>
+    <!-- Day.js -->
+    <script src="source/libraries/day.js"></script>
+    <script src="source/libraries/utcPlugin.js"></script>
+    <script>
+        dayjs.extend(window.dayjs_plugin_utc)
+    </script>
+    <!-- FullPage -->
+    <link rel="stylesheet" type="text/css" href="source/libraries/fullPage.css" />
+    <!-- CSS Links -->
+    <link rel="stylesheet" type="text/css" href="source/css/styles.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Webpage Title -->
+    <title>Twice The Spice - Authentic Indian Tandoori Restaurant & Takeaway</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="source/css/Dynalight-Regular.ttf">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+</head>
+
+<body>
+    <!-- Vue Reference -->
+    <div id="app" class="fadeIn first" style="overflow-x: hidden;" :key="key">
+        <template v-if="orientation == 'landscape'">
+            <div>
+                <div class="alert alert-danger text-center" role="alert">
+                    15% Off On All Reservations On Weekends!
+                </div>
+                <ul class="nav justify-content-center bg-light" style="padding:30px;">
+                    <router-link to="/" class="nav-item" :class="$route.name == 'Home' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'Home' ? 'color: var(--line_color)' : null">Home</a>
+                    </router-link>
+                    <!-- <router-link to="/menu" class="nav-item" :class="$route.name == 'Menu' ? 'active' : null">
+                    <a class="nav-link">Menu</a>
+                </router-link> -->
+                    <router-link to="/order" class="nav-item" :class="$route.name == 'Order' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'Order' ? 'color: var(--line_color)' : null">Order</a>
+                    </router-link>
+                    <router-link to="/aboutUs" class="nav-item" :class="$route.name == 'About Us' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'About Us' ? 'color: var(--line_color)' : null">About Us</a>
+                    </router-link>
+                    <router-link to="/contactUs" class="nav-item" :class="$route.name == 'Contact Us' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'Contact Us' ? 'color: var(--line_color)' : null">Contact Us</a>
+                    </router-link>
+                    <!-- <router-link to="/reviews" class="nav-item" :class="$route.name == 'Reviews' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'Reviews' ? 'color: var(--line_color)' : null">Reviews</a>
+                    </router-link> -->
+                    <router-link to="/reservations" class="nav-item" :class="$route.name == 'Reservations' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'Reservations' ? 'color: var(--line_color)' : null">Reservations</a>
+                    </router-link>
+                    <router-link to="/viewBasket" class="nav-item" :class="$route.name == 'View Basket' ? 'active' : null">
+                        <a class="nav-link font-weight-bolder" :style="$route.name == 'View Basket' ? 'color: var(--line_color)' : null">View Basket/Checkout
+                            <template v-if="getBasketItemsCount > 0 && $route.name != 'View Basket'">
+                                <span class="badge badge-secondary">{{getBasketItemsCount}}</span>
+                            </template>
+                        </a>
+                    </router-link>
+                </ul>
+                <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 50px;"> -->
+                <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light text-center-mobile" :style="$route.name == 'Home' ? 'padding: 50px;': 'padding-left: 30px; padding-right: 50px; padding-top: 0px; padding-bottom: 0px;'"> -->
+                <!-- <template v-if="$route.name != 'Home'">
+                    <a class="navbar-brand text-center-mobile" href="#">
+                        <router-link to="/" class="text-center-mobile"><img class="fadeIn first" src="source/resources/TwiceTheSpiceLogoFivePurple.PNG" style="width: 80%; height: auto;" /></router-link>
+                        <span class="vertical-divider-desktop px-2"></span>
+                    </a>
+                </template> -->
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#subPageItems" style="position: fixed;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="subPageItems" style="width: 100%">
+                    <ul class="navbar-nav">
+                        <router-link to="/" class="nav-item" :class="$route.name == 'Home' ? 'active' : null">
+                            <a class="nav-link">Home</a>
+                        </router-link>
+                        <router-link to="/menu" class="nav-item" :class="$route.name == 'Menu' ? 'active' : null">
+                            <a class="nav-link">Menu</a>
+                        </router-link>
+                        <router-link to="/order" class="nav-item" :class="$route.name == 'Order' ? 'active' : null">
+                            <a class="nav-link">Order</a>
+                        </router-link>
+                        <router-link to="/aboutUs" class="nav-item" :class="$route.name == 'About Us' ? 'active' : null">
+                            <a class="nav-link">About Us</a>
+                        </router-link>
+                        <router-link to="/contactUs" class="nav-item" :class="$route.name == 'Contact Us' ? 'active' : null">
+                            <a class="nav-link">Contact Us</a>
+                        </router-link>
+                        <router-link to="/reviews" class="nav-item" :class="$route.name == 'Reviews' ? 'active' : null">
+                            <a class="nav-link">Reviews</a>
+                        </router-link>
+                        <router-link to="/FAQ" class="nav-item" :class="$route.name == 'FAQ' ? 'active' : null">
+                            <a class="nav-link">FAQ</a>
+                        </router-link>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <router-link to="/viewBasket" class="nav-item" :class="$route.name == '' ? 'active' : null">
+                            <a class="nav-link">View Basket</a>
+                        </router-link>
+                    </ul>
+                </div> -->
+                <!-- </nav> -->
+            </div>
+            <router-view class="fadeIn second"></router-view>
+            <!------ Include the above in your HEAD tag ---------->
+
+            <!-- Footer -->
+            <section id="footer">
+                <div class="container">
+                    <div class="row text-center text-xs-center text-sm-left text-md-left">
+                        <div class="col-xs-12 col-sm-4 col-md-4 text-warning text-center">
+                            <h5>Find Us</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li><a>Twice The Spice</a><br>
+                                    <a>97-98 High Street</a><br>
+                                    <a>Dudley</a><br>
+                                    <a>DY1 1QP</a><br></li>
+                                <li><a>01384 23 24 25</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                            <h5>Opening Times</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li><a>Monday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 00:00</span></a></li>
+                                <li><a>Tuesday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 00:00</span></a></li>
+                                <li><a>Wednesday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 00:00</span></a></li>
+                                <li><a>Thursday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 00:00</span></a></li>
+                                <li><a>Friday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 02:00</span></a></li>
+                                <li><a>Saturday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 02:00</span></a></li>
+                                <li><a>Sunday: &nbsp;&nbsp;<span style="font-weight: bold">17:00 - 00:00</span></a></li>
+                                <li><a>Please Note - We are open on Bank Holidays </a></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                            <h5>Legal Documents</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li><a href="source/resources/Terms and Conditions.pdf" download="Terms and Conditions.pdf">Terms & Conditions</a></li>
+                                <li><a href="source/resources/Privacy Policy.pdf" download="Privacy Policy.pdf">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                            <p><u><a>Twice The Spice - Authentic Indian Tandoori Restaurant & Takeaway</a></u> is a Registered Business</p>
+                            <p class="h6">&copy; All Rights Reversed.<a class="ml-2">Twice The Spice</a></p>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </section>
+            <!-- ./Footer -->
+        </template>
+        <template v-else>
+            <div class="imgbox">
+                <img class="center-fit" src="source/resources/RotateImage.gif">
+            </div>
+        </template>
+    </div>
+    <!-- Script Links -->
+    <script src="source/javascript/globalObjects.js"></script>
+    <script src="source/javascript/calls.js"></script>
+    <script src="source/javascript/pages/home.js"></script>
+    <script src="source/javascript/pages/aboutUs.js"></script>
+    <script src="source/javascript/pages/reviews.js"></script>
+    <script src="source/javascript/pages/order.js"></script>
+    <script src="source/javascript/pages/contactUs.js"></script>
+    <script src="source/javascript/pages/reservations.js"></script>
+    <script src="source/javascript/pages/viewBasket.js"></script>
+    <script src="source/javascript/globalFunctions.js"></script>
+    <script src="source/javascript/index.js"></script>
+</body>
+
+</html>

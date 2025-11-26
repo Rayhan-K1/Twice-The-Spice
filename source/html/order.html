@@ -1,0 +1,208 @@
+<div id="TwiceTheSpice_OrderRoot" :style="!reactivity.barScroll ? 'padding-left: 100px; padding-right: 100px;' : ''" style="padding-top: 30px;min-height:calc(100vh - var(--navbar-height));" :key="reload">
+    <!-- <div id="TwiceTheSpice_OrderRoot" style="padding-left: 100px; padding-right: 100px;padding-top: 30px;" :style="selectedTab || (search.Query && getMenu.length > 0) ? '' : 'min-height:calc(100vh - var(--navbar-height));'"> -->
+    <div class="row height d-flex justify-content-center align-items-center mb-5">
+        <div :class="reactivity.barScroll ? 'col-11' : 'col-6'">
+            <div class="form">
+                <input type="text" class="form-control form-input" placeholder="Search Our Menu" v-model="search.Query">
+                <!-- <div class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">Test</div> -->
+            </div>
+        </div>
+    </div>
+    <template v-if="!search.Query">
+        <template v-if="reactivity.barScroll">
+            <div class="nav-collapse-custom nav-tabs mt-5" style="padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0;">
+
+                <a class="nav-item nav-link mx-2 cursor-pointer" :class="menuTab == selectedTab ? 'active': ''" v-for="menuTab in getMenu" v-on:click="selectedTab = menuTab" style="font-size: 15px; display: inline-block;">{{menuTab.MenuTab}}</a>
+            </div>
+        </template>
+        <template v-else>
+            <ul class="nav nav-tabs mt-5">
+                <li class="nav-item mx-2 cursor-pointer" v-for="menuTab in getMenu" v-on:click="selectedTab = menuTab">
+                    <a class="nav-link" :class="menuTab == selectedTab ? 'active': ''" style="font-size:15px;">{{menuTab.MenuTab}}</a>
+                </li>
+            </ul>
+        </template>
+    </template>
+    <template v-if="selectedTab || search.Query">
+        <template v-if="search.Query && getMenu.length == 0">
+            <div class="p-3 mx-5 my-3 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header">
+                            No Results Found
+                        </div>
+                        <div class="text-muted">
+                            Please try adjusting your search query
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template v-else>
+            <div class="cursor-pointer" v-for="(item, index) in (search.Query ? getMenu : selectedTab.Items)">
+                <div class="p-3 mx-5 my-3">
+                    <template v-if="item.ItemType == 'List'">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="header">
+                                    {{item.ItemName}}
+                                </div>
+                                <div class="text-muted">
+                                    {{item.IsVegetarian ? 'Vegetarian' : null}} <br />
+                                    £{{item.Price}}
+                                </div>
+                            </div>
+                            <div class="col-3" style="display: flex;justify-content: center;align-items: center;">
+                                <!-- <div class="border border-dark" style="height: 37%;border-radius: 40px;"></div> -->
+                                <!-- <i class="fa fa-shopping-cart zoom" style="color: rgb(72, 168, 237); font-size: 40px; box-sizing: content-box; line-height: 72px; text-align: center; width: 72px; height: 72px; display: inline-block; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(item)"></i> -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="input-group w-auto justify-content-end align-items-center">
+                                                <input type="button" class="button-minus border rounded-circle  icon-shape icon-sm mx-1" value="-" v-on:click="incrementOrDecrementValue('decrement', index + item.ItemID)">
+                                                <input type="number" step="1" min="1" value="1" :id="index + item.ItemID" class="quantity-field border-0 text-center w-25" v-on:blur="checkValue(index + item.ItemID);">
+                                                <input type="button" class="button-plus border rounded-circle icon-shape icon-sm mx-1" value="+" v-on:click="incrementOrDecrementValue('increment', index + item.ItemID)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <template v-if="item.ModalNeeded">
+                                    <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" data-toggle="modal" data-target="#staticBackdrop"></i>
+                                </template>
+                                <template v-else>
+                                    <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(item, index + item.ItemID)"></i>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else-if="item.ItemType == 'Select'">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div :class="search.Query && getMenu.length > 0 ? 'col-8' : 'col-10'">
+                                <div class="header">
+                                    {{item.ItemName}}
+                                </div>
+                                <template v-if="search.Query && getMenu.length > 0">
+                                    <div class="text-muted">
+                                        {{item.IsVegetarian ? 'Vegetarian' : null}} <br />
+                                        £{{item.Price}}
+                                    </div>
+                                </template>
+                            </div>
+                            <template v-if="search.Query && getMenu.length > 0">
+                                <div class="col-3" style="display: flex;justify-content: center;align-items: center;">
+                                    <!-- <div class="border border-dark" style="height: 37%;border-radius: 40px;"></div> -->
+                                    <!-- <i class="fa fa-shopping-cart zoom" style="color: rgb(72, 168, 237); font-size: 40px; box-sizing: content-box; line-height: 72px; text-align: center; width: 72px; height: 72px; display: inline-block; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(item)"></i> -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="input-group w-auto justify-content-end align-items-center">
+                                                    <input type="button" class="button-minus border rounded-circle  icon-shape icon-sm mx-1" value="-" v-on:click="incrementOrDecrementValue('decrement', index + item.ItemID)">
+                                                    <input type="number" step="1" min="1" value="1" :id="index + item.ItemID" class="quantity-field border-0 text-center w-25" v-on:blur="checkValue(index + item.ItemID);">
+                                                    <input type="button" class="button-plus border rounded-circle icon-shape icon-sm mx-1" value="+" v-on:click="incrementOrDecrementValue('increment', index + item.ItemID)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <template v-if="item.ModalNeeded">
+                                        <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" data-toggle="modal" data-target="#staticBackdrop"></i>
+                                    </template>
+                                    <template v-else>
+                                        <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(item, index + item.ItemID)"></i>
+                                    </template>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="col-2 text-right">
+                                    <img src="source/resources/down.png" style="width: 20%; opacity: 0.4;" :data-toggle="item.ItemType == 'Select' ? 'collapse' : null" :data-target="item.ItemType == 'Select' ? '#' + item.ItemID : null" />
+                                </div>
+                            </template>
+                        </div>
+                        <div class="ml-5 collapse" :id="item.ItemID">
+                            <div class="row pt-4" v-for="(subItem, subItemIndex) in item.SubItems" v-on:click="event.stopPropogation();">
+                                <div class="col-8">
+                                    <div class="header">
+                                        {{subItem.ItemName}}
+                                    </div>
+                                    <div class="text-muted">
+                                        {{subItem.IsVegetarian ? 'Vegetarian' : null}} <br />
+                                        £{{subItem.Price}}
+                                    </div>
+                                </div>
+                                <div class="col-3" style="display: flex;justify-content: center;align-items: center;">
+                                    <!-- <div class="border border-dark" style="height: 37%;border-radius: 40px;"></div> -->
+                                    <!-- <i class="fa fa-shopping-cart zoom" style="color: rgb(72, 168, 237); font-size: 40px; box-sizing: content-box; line-height: 72px; text-align: center; width: 72px; height: 72px; display: inline-block; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(item)"></i> -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="input-group w-auto justify-content-end align-items-center">
+                                                    <input type="button" class="button-minus border rounded-circle  icon-shape icon-sm mx-1" value="-" v-on:click="incrementOrDecrementValue('decrement', subItemIndex + subItem.ItemID);event.stopPropogation();">
+                                                    <input type="number" step="1" min="1" value="1" :id="subItemIndex + subItem.ItemID" class="quantity-field border-0 text-center w-25" v-on:blur="checkValue(subItemIndex + subItem.ItemID);event.stopPropogation();">
+                                                    <input type="button" class="button-plus border rounded-circle icon-shape icon-sm mx-1" value="+" v-on:click="incrementOrDecrementValue('increment', subItemIndex + subItem.ItemID);event.stopPropogation();">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <template v-if="subItem.ModalNeeded">
+                                        <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" data-toggle="modal" data-target="#staticBackdrop"></i>
+                                    </template>
+                                    <template v-else>
+                                        <i class="fa fa-shopping-cart shadow shadow-lg zoom" style="color: rgb(72, 168, 237); font-size: 40px; line-height: 72px; text-align: center; width:72px; height: auto; overflow: hidden; border-radius: 50%; background-color: rgb(224, 231, 237);" v-on:click="addToBasket(subItem, subItemIndex + subItem.ItemID)"></i>
+                                    </template>
+                                </div>
+                                <div class="border border-bottom mt-5 w-100" style="opacity: 0.5;"></div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="border border-bottom mt-5 w-100" style="opacity: 0.5;"></div>
+                </div>
+            </div>
+        </template>
+    </template>
+    <template v-else>
+        <template v-if="!selectedTab">
+            <div class="p-3 mx-5 my-3 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header">
+                            No Category Selected
+                        </div>
+                        <div class="text-muted">
+                            Please select a category to add items to your basket
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+    <template v-if="hasItemsInBasket">
+        <!-- <div class="w-100"> -->
+        <div class="mb-4 mr-4 btn-circular" v-on:click="changePage('viewBasket')"><img src="source/resources/checklist.png" style="width: 50%; text-align: center; display: inline-block; margin: 25%;"></div>
+        <!-- </div> -->
+    </template>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="false" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 1000">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

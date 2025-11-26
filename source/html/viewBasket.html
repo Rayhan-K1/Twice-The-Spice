@@ -1,0 +1,193 @@
+<div id="TwiceTheSpice_ViewBasketRoot" style="min-height: calc(100vh - var(--navbar-height)); padding: 40px 80px 80px 80px;">
+    <!-- <div class="progress mb-4">
+        <div class="progress-bar bg-purple progress-bar-striped progress-bar-animated" role="progressbar" :style="'width: ' + getProgress + '%'">{{getProgress}}%</div>
+    </div> -->
+    <template v-if="state == 'confirmBasket'">
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); grid-gap: 0px;">
+            <div style="grid-area: span 1 / span 12; gap: 0">
+                <div class="card shadow shadow-lg" style="height: 500px; min-height: 80%; overflow-y: scroll;">
+                    <div class="card-body">
+                        <template v-if="getItemsInBasket.length > 0">
+                            <div v-for="item in getItemsInBasket" class="my-4" style="display: grid; grid-template-columns: repeat(12, 1fr); grid-gap: 20px;">
+                                <div class="font-weight-bolder" style="grid-area: span 1 / span 10;">
+                                    {{item.ItemName}} {{item.IsVegetarian ? '(v)' : null}} x {{item.Quantity}}
+                                </div>
+                                <div class="font-weight-bolder pr-3" style="grid-area: span 1 / span 1; text-align: right;">
+                                    £{{calculatePrice(item.Price, item.Quantity)}}
+                                </div>
+                                <div class="font-weight-bolder pr-3" style="grid-area: span 1 / span 1; text-align: center;">
+                                    <div class="cursor-pointer">
+                                        <img src="source/resources/trash.gif" v-on:click="removeFromBasket(item)" />
+                                    </div>
+                                </div>
+                                <div class="font-weight-bolder" style="grid-area: span 1 / span 12;">
+                                    <div class="border border-bottom w-100" style="opacity: 0.5;"></div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="p-3 mx-5 my-3 text-center">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="header">
+                                            No Items Added To Basket
+                                        </div>
+                                        <div class="text-muted">
+                                            Please add items to your basket to continue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div style="grid-area: span 1 / span 10;">
+
+            </div>
+            <template v-if="getItemsInBasket.length > 0">
+                <div style="grid-area: span 1 / span 2;">
+                    <div class="card shadow shadow-lg" style="overflow: hidden;">
+                        <div class="card-body">
+                            <h4 class="font-weight-bolder" style="text-align:center;">Total: £{{calculateTotalPrice()}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-4" style="grid-area: span 1 / span 6;">
+                    <div class="btn btn-danger w-100" v-on:click="clearBasket();">Clear Basket</div>
+                </div>
+                <div class="m-4" style="grid-area: span 1 / span 6;">
+                    <div class="btn btn-outline-purple w-100" v-on:click="changePage('confirmMethodOfDelivery')">Next</div>
+                </div>
+            </template>
+        </div>
+    </template>
+    <template v-if="state == 'confirmMethodOfDelivery'">
+        <div class="border shadow shadow-lg" style="min-height: 220px;">
+            <div style="display: grid; grid-template-columns: repeat(12, 1fr); grid-gap: 10px;">
+                <div style="grid-area: span 1 / span 12;">
+                    <div class="alert alert-info pt-3 px-5">Please fill out the fields below to progress</div>
+                </div>
+                <div style="grid-area: span 1 / span 12;">
+                    <div class="form-group w-100 px-5">
+                        <label for="exampleFormControlSelect1">Delivery Or Collection:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" v-model="CollectionMethod">
+                            <option value="0" disabled selected> -- select an option -- </option>
+                            <option value="delivery">Delivery</option>
+                            <option value="collection">Collection</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="grid-area: span 1 / span 12;">
+                    <div class="form-group w-100 px-5 pb-3">
+                        <label for="exampleFormControlSelect1">Payment Method:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" v-model="PaymentMethod">
+                            <option value="0" disabled selected> -- select an option -- </option>
+                            <option value="cash">Cash</option>
+                            <option value="card">Card</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); grid-gap: 10px;">
+            <div class="m-4" style="grid-area: span 1 / span 6">
+                <div class="btn btn-outline-danger w-100" v-on:click="changePage('confirmBasket')">Go Back</div>
+            </div>
+            <div class="m-4" style="grid-area: span 1 / span 6;">
+                <div class="btn btn-outline-purple w-100" :class="isDeliveryAndPaymentComplete ? '' : 'disabled'" v-on:click="isDeliveryAndPaymentComplete ? changePage('enterDetails'): null">Next</div>
+            </div>
+        </div>
+    </template>
+    <template v-if="state == 'enterDetails'">
+        <div class="card shadow shadow-lg" style="min-height: 500px; min-height: 80%; overflow-y: scroll;">
+            <div class="card-body">
+                <form class="w-100 border border-light shadow shadow-lg p-4" style="text-align: left;">
+                    <h5>Customer Details</h5>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Title:</label>
+                        <select class="form-control" id="exampleFormControlSelect1" v-model="CustomerDetails.Title">
+                            <option>Mr</option>
+                            <option>Mrs</option>
+                            <option>Ms</option>
+                            <option>Master</option>
+                            <option>Dr</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name:</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: John" v-model="CustomerDetails.FirstName">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: Appleseed" v-model="CustomerDetails.LastName">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address:</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: john.appleseed@gmail.com" v-model="CustomerDetails.EmailAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number:</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: 07123 456 789" v-model="DeliveryInformation.ContactNumber">
+                    </div>
+                </form>
+                <template v-if="CollectionMethod =='delivery'">
+                    <form class="w-100 border border-light shadow shadow-lg p-4" style="text-align: left;">
+                        <h5>Delivery Information</h5>
+                        <div class="alert alert-info">Please enter your delivery address and information below</div>
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <textarea type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: 4 Privet Drive, Little Whinging" v-model="DeliveryInformation.Address"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Postcode:</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="e.g: DY1 1QP" v-model="DeliveryInformation.Postcode">
+                            </div>
+                        </div>
+                    </form>
+                </template>
+                <form class="w-100 border border-light shadow shadow-lg p-4" style="text-align: left;">
+                    <h5>Order Comments</h5>
+                    <div class="alert alert-info">This will be passed along with your order. Please include any special ordering or delivery information</div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Additional Notes:</label>
+                            <textarea type="text" class="form-control" maxlength="500" id="exampleInputPassword1" placeholder="max entry - 500 characters" v-model="OrderComments.AdditionalNotes"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(12, 1fr); grid-gap: 10px;">
+            <div class="m-4" style="grid-area: span 1 / span 6;" v-on:click="changePage('confirmMethodOfDelivery')">
+                <div class="btn btn-outline-danger w-100">Go Back</div>
+            </div>
+            <div class="m-4" style="grid-area: span 1 / span 6;">
+                <div class="btn btn-outline-purple w-100" :class="(isCustomerDetailsComplete && isDeliveryInformationComplete) ? '' : 'disabled'" v-on:click="changePage('orderPlaced'); sendForm();">Confirm Order</div>
+            </div>
+        </div>
+    </template>
+    <template v-if="state == 'orderPlaced'">
+        <div class="row fadeIn first">
+            <div class="col text-center mt-3">
+                <img class="img-fluid zoom" src="source/resources/orderPlaced.png" style="width: 30%" />
+            </div>
+        </div>
+        <div class="fadeIn second">
+            <div class="mx-5 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="header text-purple">
+                            Your Order Has Been Placed!
+                        </h4>
+                        <h5 class="text-muted text-pink">
+                            Please wait, restaurant staff will contact you at the earliest opportunity to transact payment
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</div>
