@@ -2,7 +2,7 @@
 
 **Twice The Spice** is a commercial restaurant website that lets customers browse the menu and place orders online.  
 
-This repository contains the front-end implementation for the site, built with HTML, CSS and vanilla JavaScript.
+This repository contains the front-end implementation for the site, built with HTML, CSS and JavaScript.
 
 ---
 
